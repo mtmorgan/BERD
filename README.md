@@ -11,7 +11,7 @@ There are three one-hour sessions
 
 - [Introduction to R][intro]
 - [Data Input and Manipulation][io]
-- [Visualization and Statistical Analysis][vis]
+- [Statistical Analysis and Additional Visualization][vis]
 
 [intro]: https://mtmorgan.github.io/BERD/articles/a_introduction_to_r.html
 [io]: https://mtmorgan.github.io/BERD/articles/b_data_io.html

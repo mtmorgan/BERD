@@ -1,8 +1,8 @@
 ---
-title: "Visualization and Statistical Analysis"
+title: "Statistical Analysis and Additional Visualization"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Visualization and Statistical Analysis}
+  %\VignetteIndexEntry{Statistical Analysis and Additional Visualization}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,18 +16,215 @@ knitr::opts_chunk$set(
 
 # Recap: BRFSS data input
 
-# Visualization
+Download (if necessary) and input the data from day 2 using [readr][]
 
-# Statistical Analysis
+```{r, eval = FALSE}
+url <- "https://raw.githubusercontent.com/mtmorgan/BERD/main/inst/extdata/BRFSS-subset.csv"
+destination <- file.path("data", basename(url))
+if (!file.exists(destination)) {
+    dir.create("data")
+    download.file(url, destination)
+}
+```
+
+```{r, echo = FALSE}
+destination <- system.file(package = "BERD", "extdata", "BRFSS-subset.csv")
+```
+
+```{r, message = FALSE}
+brfss <- readr::read_csv(destination)
+```
+
+Attach the [dplyr][] package and perform the same initial data
+transformations, and create subsets of data.
+
+```{r, message = FALSE}
+library(dplyr)
+
+brfss_clean <-
+    brfss |>
+    mutate(
+        Year = factor(Year, levels = c("1990", "2010")),
+        Sex = factor(Sex, levels = c("Female", "Male")),
+        Log10Weight = log10(Weight)
+    )
+
+brfss_male <-
+    brfss_clean |>
+    filter(Sex == "Male")
+
+brfss_female_2010 <-
+    brfss_clean |>
+    filter(Sex == "Female", Year == "2010")
+```
+
+# Statistical analysis
 
 ## t-test
 
+We saw that Males in 2010 seemed to be heavier than Males in 1990
+
+```{r, fig.asp = 1}
+brfss_male |>
+    group_by(Year) |>
+    summarize(
+        n = n(),
+        ave_wt = mean(Weight, na.rm = TRUE),
+        ave_log10_wt = mean(Log10Weight, na.rm = TRUE)
+    )
+plot(Weight ~ Year, brfss_male, log = "y")
+```
+
+But is this difference statistically significant? Answer this using a
+*t*-test to compare the mean of two groups.
+
+Start by consulting the help page `?t.test` with 'Usage' labeled "S3
+method for class 'formula'". Use the `Log10Weight` column so that we
+are comparing log-transformed Weight.
+
+```{r}
+t.test(Log10Weight ~ Year, brfss_male)
+```
+
+The *p*-value displayed here is `< 2.2e-16`, so we are *very*
+confident that Males in 2010 are heavier than Males in 1990.
+
+The 'sample estimates' agree with the values we calculated using
+`group_by()` and `summarize()`; this provides us with some confidence
+that we have not done something very wrong.
+
+Note that `t.test()` actually returns an *object* that we can capture
+and manipulate, e.g., to obtain a vector of group mean estimates.
+
+```{r}
+t_test <- t.test(Log10Weight ~ Year, brfss_male)
+t_test$estimate
+```
+
 ## Linear regression
+
+It seems like there was a positive relationship between Height and
+(log 10) Weight in Females in 2010.
+
+```{r, fig.asp = 1}
+plot(Weight ~ Height, brfss_female_2010, log = "y")
+```
+
+Fitting a linear regression in *R* is a two-step process
+
+- Use `lm()` to fit the linear model
+- Use `summary()` or `anova()` to assess the statistical significance
+  of the fitted model.
+  
+Start by fitting the model, using notation like that used to plot the
+data; use `Log10Weight` so the fit is to the log-transformed data.
+
+```{r}
+fit <- lm(Log10Weight ~ Height, brfss_female_2010)
+fit
+```
+
+The `fit` object doesn't initially seem very useful -- it tells us
+what we did, and summarizes the intercept (`r fit$coefficients[[1]]`)
+and slope (`r fit$coefficients[[2]]`), but does not provide an ANOVA
+table or other summary about whether the fit is statistically
+significant.
+
+Use `anova()` to obtain an ANOVA table summarizing the fit.
+
+```{r}
+anova(fit)
+```
+
+The table indicates that there is a highly significant relationship
+(`Pr(>F)` is `< 2.2e-16`) between Weight and Height. `summary()`
+provides the ANOVA table and additional information
+
+```{r}
+summary(fit)
+```
+
+e.g., showing that about 10% ('Adjusted R-squared') of the variation
+in log 10 Weight is explained by Height. There are likely many other
+factors contributing to Weight variation.
+
+To visualize the linear regression, plot the data points and then use
+`abline()` to add the regression line; we also add a 'main' title to
+the plot.
+
+```{r, fig.asp = 1}
+plot(
+    Log10Weight ~ Height, brfss_female_2010,
+    main = "Log 10 Weight vs Height, BRFSS Female 2010"
+)
+abline(fit, col = "red", lwd = 4) # red color, 4x default line width
+```
+
+# Additional analysis and visualization
+
+Let's use the [ggplot2][] package to perform additional analysis and
+visualization
+
+```{r, message = FALSE}
+library(ggplot2)
+```
+
+[ggplot2][] implements a 'grammar of graphics'. The author of the
+package has provided a unique way to create plots -- start with a
+`ggplot()` graph, and then add `aes()`thetics (what will be plotted)
+and `geom()`etries (how to plot the aesthetics), and additional layers
+to, e.g., transform the y-axis to a log scale.
+
+```{r, fig.asp = 1, warning = FALSE}
+ggplot(brfss_female_2010) +
+    aes(x = Height, y = Weight) +
+    geom_point() +
+    scale_y_log10()
+```
+
+Add a linear regression using `geom_smooth(method = "lm")`
+
+```{r, fig.asp = 1, warning = FALSE}
+ggplot(brfss_female_2010) +
+    aes(x = Height, y = Weight) +
+    geom_point() +
+    geom_smooth(method = "lm") +
+    scale_y_log10()
+```
+
+Note that the fitted regression includes confidence bands, which can
+be very helpful when trying to interpret the fit.
+
+Let's not specify a 'method' for `geom_smooth()`, letting [ggplot2][]
+use it's default method...
+
+```{r, fig.asp = 1, warning = FALSE}
+ggplot(brfss_female_2010) +
+    aes(x = Height, y = Weight) +
+    geom_point() +
+    geom_smooth() +
+    scale_y_log10()
+```
+
+[ggplot2][] has chosen to use a 'generalized additive model' that fits
+a smoothed curve. This makes fewer *a priori* assumptions about the
+relationship between Weight and Height, and in particular suggests
+that (a) the linear relationship is appropriate for the central part
+of the data, but not at the extremes of Height and (b) there is
+considerable uncertainty at the extremes of Height. This approach
+(making fewer assumptions about the relationship between variables) is
+very appropriate in early stages of exploratory analysis, where one is
+still trying to understand data without making additional or
+unnecessary assumptions.
 
 # Using AI
 
-# Session Information
+# Session information
 
 ```{r}
 sessionInfo()
 ```
+
+[dplyr]: https://CRAN.R-project.org/package=dplyr
+[readr]: https://CRAN.R-project.org/package=readr
+[ggplot2]: https://CRAN.R-project.org/package=ggplot2

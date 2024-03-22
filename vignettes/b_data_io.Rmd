@@ -52,18 +52,40 @@ Attach [dplyr][] to our current *R* session.
 library(dplyr)
 ```
 
+Useful functions for data exploration
+
+- `count()` -- count occurence of values in one or more columns
+- `summarize()` -- more flexible summary of columns
+- `group_by()` -- summarize or perform other operations by group
+
+Functions for data manipulation
+
+- `mutate()` -- update or add columns
+- `filter()` -- remove rows based on column values
+- `select()` -- remove, rearrange, or re-name columns
+
 ## `count()`
+
+Count of observed values for one...
 
 ```{r}
 brfss |>
     count(Year)
 brfss |>
     count(Sex)
+```
+
+...or several columns
+
+```{r}
 brfss |>
     count(Year, Sex)
 ```
 
 ## `summarize()`
+
+More flexible summary, e.g., number of observations `n()` or mean
+values of columns, removing `NA`, `mean(, na.rm = TRUE)`.
 
 ```{r}
 brfss |>
@@ -76,6 +98,9 @@ brfss |>
 ```
 
 ## `group_by()`
+
+Often data sets contain groups that can be summarized separately,
+e.g., calculating mean values by Year and Sex.
 
 ```{r}
 brfss |>
@@ -106,14 +131,18 @@ brfss_clean
 
 ## `filter()`
 
-Create a subset of the data that includes only Male samples, or only
-Female samples from 2010.
+Create a subset of the data that includes only Male samples, ...
 
 ```{r}
 brfss_male <-
     brfss_clean |>
     filter(Sex == "Male")
 brfss_male
+```
+
+...or only Female samples from 2010.
+
+```{r}
 brfss_female_2010 <-
     brfss_clean |>
     filter(Sex == "Female", Year == "2010")
@@ -122,7 +151,7 @@ brfss_female_2010
 
 ## `select()`
 
-Use `select()` to choose particular columns
+Use `select()` to choose particular columns, or to re-order columns
 
 ```{r}
 brfss_male |>
@@ -146,7 +175,8 @@ plot(Weight ~ Height, brfss_female_2010, log = "y")
 ## plot(Log10Weight ~ Height, brfss_female_2010)
 ```
 
-Do Males differ in weight between 1990 and 2010, plotted on a log scale?
+Does it look like Males differ in weight between 1990 and 2010,
+plotted on a log scale?
 
 ```{r, fig.asp = 1}
 brfss_male |>
