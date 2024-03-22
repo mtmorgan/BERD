@@ -13,7 +13,7 @@ There are three one-hour sessions
 - [Data Input and Manipulation][io]
 - [Visualization and Statistical Analysis][vis]
 
-[intro]: https://mtmorgan.github.io/BERD/docs/articles/a_introduction_to_r.html
-[io]: https://mtmorgan.github.io/BERD/docs/articles/b_data_io.html
-[vis]: https://mtmorgan.github.io/BERD/docs/articles/c_visualization.html
+[intro]: https://mtmorgan.github.io/BERD/articles/a_introduction_to_r.html
+[io]: https://mtmorgan.github.io/BERD/articles/b_data_io.html
+[vis]: https://mtmorgan.github.io/BERD/articles/c_visualization.html
 

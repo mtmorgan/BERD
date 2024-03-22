@@ -36,11 +36,209 @@ through [Bioconductor][] (for high-throughput genomic data).
 
 # *R*
 
-## Vectors
+```{r}
+1 + 2
+```
+
+```{r}
+sqrt(2)
+```
+
+## Vectors and variables
+
+*R* usually works on *vectors* of values
+
+```{r}
+c(1, 2, 3)
+```
+
+It usually makes sense to assign a vector of values to a variable, to
+make it easy to repeatedly reference the same set of values
+
+```{r}
+x <- c(1, 2, 3)
+x
+```
+
+Types of vectors
+
+- logical -- `c(TRUE, FALSE)`
+- integer -- `c(1, 2, 3)`
+- numeric -- `c(1.41, 2.30, 3.14159)`
+- character -- `c("May", "June", "July")`
+- complex
+
+Statistical concepts
+
+- 'Missing' values
+  - use `NA` in any vector, e.g., `c(1, 2, NA, 3)`
+- factor with levels
+  - Often, in an experimental design, there are defined number of
+    groups, e.g., 'treatment' and 'control'
+  - Use a `factor` to represent these values
+  
+      ```{r}
+      levels <- c("treatment", "control") # possible values
+      ## observed values -- four samples
+      values <- c("treatment", "treatment", "control", "control")
+      factor(values, levels = levels)
+      ```
+
+Operations, e.g., numeric
+
+- two vectors -- element-wise
+
+    ```{r}
+    x <- c(1, 2, 3)
+    y <- c(4, 5, 6)
+    x + y
+    ```
+
+- vector and scalar -- scalar is 'recycled' to the same length as
+  vector, and then element-wise operations are preformed
+  
+  ```{r}
+  x * 2
+  ```
+
+Common operations
+
+- logical -- `&` ('and'), `|` ('or'), `!` (not), `==` (element-wise equivalence)
+
+    ```{r}
+    c(TRUE, TRUE, FALSE, FALSE) & c(TRUE, FALSE, TRUE, FALSE)
+    c(TRUE, TRUE, FALSE, FALSE) | c(TRUE, FALSE, TRUE, FALSE)
+    !c(TRUE, TRUE, FALSE, FALSE)
+    c(TRUE, TRUE, FALSE, FALSE) == c(TRUE, FALSE, TRUE, FALSE)
+    ## Fun!
+    c(TRUE, FALSE, NA) & c(NA, NA, NA)
+    c(TRUE, FALSE, NA) | c(NA, NA, NA)
+    ```
+
+- integer / numeric -- `+`, `-`, `*`. Comparison `==`, `>`, `>=`, `<`,
+  `<=`. Many functions like `log()`, `sqrt()`, ...
+
+- character -- `paste()` (paste two string togther), `nchar()`, `substring()`
+
+    ```{r}
+    month <- c("April", "May", "June", "July")
+    year <- c("2020", "2021", "2022", "2023")
+    paste(year, month)
+    ```
+
+Subsetting
+
+```{r}
+x <- c(1, 2, 3, 4)
+x[c(1, 3)]
+x[x >= 3]
+```
 
 ## `data.frame`
 
+Organizing vectors into columns
+
+```{r}
+df <- data.frame(
+    Month = month, Year = year,
+    Temperature = c(20, 22, 24, 25)
+)
+df
+```
+
+Subsetting
+
+- columns 
+
+    ```{r}
+    df[, c("Month", "Temperature")]
+    ```
+
+- rows
+
+    ```{r}
+    df[c(1, 3), ]
+    ```
+
+Column access
+
+- `$`; can be useful to subset
+
+    ```{r}
+    df$Temperature
+    df[df$Temperature > 22,]
+    ```
+
+- `[[`; useful when a variable defines the column of interest
+
+    ```{r}
+    column_of_interest <- "Temperature"
+    df[[ column_of_interest ]]
+    ```
+
 ## Functions
+
+```{r}
+x <- rnorm(100)
+x
+```
+
+Look up the help page for `rnorm` -- `?rnorm`
+
+Plot a histogram using `hist()`
+
+```{r}
+x <- rnorm(1000)
+hist(x)
+```
+
+Generate two equal-length vectors and visualize as a scatter plot
+
+```{r, fig.asp = 1}
+y <- x + rnorm(1000) # element-wise addition; each element of 'y' is
+                     # the sum of two random variables
+plot(x, y)           # one way to plot
+plot(y ~ x)          # another way to plot -- 'y as a function of x'
+```
+
+Place `x` and `y` into a `data.frame`, and use to plot
+
+```{r, fig.asp = 1}
+df <- data.frame(X = x, Y = y)
+plot(Y ~ X, df)
+```
+
+Subset to just the positive quadrant
+
+```{r, fig.asp = 1}
+plot(Y ~ X, df[df$X > 0 & df$Y > 0,])
+```
+
+A built-in data frame -- `mtcars`
+
+```{r}
+mtcars
+```
+
+Plot miles per gallon `mpg` as a function of number of cylinders, `cyl`
+
+```{r, fig.asp = 1}
+plot(mpg ~ cyl, mtcars) # scatter plot
+```
+
+Note though that `cyl` should probably be a factor -- a finite number
+of possible values.
+
+```{r}
+mtcars$cyl
+factor(mtcars$cyl) # 'levels' have a sensible default
+```
+
+Treat `cyl` as a factor when plotting
+
+```{r, fig.asp = 1}
+plot(mpg ~ factor(cyl), mtcars)
+```
 
 ## Packages
 
@@ -51,15 +249,46 @@ Examples:
 
 Installation
 
+- Packages only need to be installed once
+
+    ```{r, eval = FALSE}
+    ## also possible to use RStudio 'Packages' panel...
+    install.packages("dplyr", repos = "https://CRAN.R-project.org")
+    ```
+
 Use
 
-```{r, message = FALSE}
-library(dplyr)
-```
+- Attach packages in each *R* session where you would like to use it
+
+    ```{r, message = FALSE}
+    library(dplyr)
+    ```
 
 `tibble` versus `data.frame`
 
+- only some values displayed -- really useful even for this small data
+  set
+- column data types indicated
+
+    ```{r}
+    tbl <- tibble(mtcars)
+    tbl
+    ```
+
 Pipes
+
+- `|>` takes the value on the 'left-hand side' and uses it as the
+  first argument in the function on the 'right-hand side'
+  
+  ```{r}
+  tbl <-
+      mtcars |>
+      tibble()
+  ```
+
+- this can be a very useful paradigm -- 'take the mtcars data set, and
+  apply the tibble function to it' -- and allows a series of related
+  operations to be chained together
 
 [dplyr]: https://CRAN.R-project.org/package=dplyr
 [ggplot2]: https://CRAN.R-project.org/package=dplyr
@@ -96,6 +325,10 @@ Other sources of help
 - Google
 - [StackOverflow][]
 - ChatGPT & other AI
+
+    - can be amazingly helpful, especially if asked to perform specific tasks
+    - also useful to 'explain this code' or 'add comments to this code'
+    - what out for halucinations!
 
 [StackOverflow]: https://stackoverflow.com/questions/tagged/r
 
