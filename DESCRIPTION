@@ -1,0 +1,15 @@
+Package: BERD
+Title: Course Material for BERD Scholars Introduction to R
+Version: 0.0.0.9000
+Authors@R: c(
+    person(
+        "Martin", "Morgan", role = c("aut", "cre"),
+        email = "mtmorgan.xyz@gmail.com",
+        comment = c(ORCID = "0000-0002-5874-8148")
+    ))
+Description: Course material for an 'Introduction to *R*' workshop
+    offered University at Buffalo BERD scholars, 2024.
+License: Artistic-2.0
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
