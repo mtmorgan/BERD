@@ -1,0 +1,106 @@
+---
+title: "Introduction to R"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to R}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+*R* is an interactive programming language emphasizing statistical
+analysis and visualization. It is very useful for both light-weight
+data manipulation, and for advanced statistical analysis and
+visualization. *R* is available as Free Software under the GNU General
+Public License. It is highly extensible through user-contributed
+'packages', of which there are more than 20,000 available through
+[CRAN][] (Comprehensive *R* Archive Network) and more than 2,000
+through [Bioconductor][] (for high-throughput genomic data).
+
+[CRAN]: https://CRAN.R-project.org
+[Bioconductor]: https://bioconductor.org
+
+# *RStudio*
+
+## Panes
+
+## Scripts
+
+## Markdown
+
+# *R*
+
+## Vectors
+
+## `data.frame`
+
+## Functions
+
+## Packages
+
+Examples:
+
+- [dplyr][]: data manipulation based on 'tidy' principles.
+- [ggplot2][]: plotting using the 'grammar of graphics'
+
+Installation
+
+Use
+
+```{r, message = FALSE}
+library(dplyr)
+```
+
+`tibble` versus `data.frame`
+
+Pipes
+
+[dplyr]: https://CRAN.R-project.org/package=dplyr
+[ggplot2]: https://CRAN.R-project.org/package=dplyr
+
+## Help!!!
+
+*RStudio*
+
+*R*
+
+- For help on individual commands, use `?` at the command line, e.g.,
+  `?data.frame`
+- For package help, try
+
+    ```{r, eval = FALSE}
+    vignette(package = "dplyr")
+    #> Vignettes in package 'dplyr':
+    #> 
+    #> colwise                 Column-wise operations (source, html)
+    #> base                    dplyr <-> base R (source, html)
+    #> grouping                Grouped data (source, html)
+    #> dplyr                   Introduction to dplyr (source, html)
+    #> programming             Programming with dplyr (source, html)
+    #> rowwise                 Row-wise operations (source, html)
+    #> two-table               Two-table verbs (source, html)
+    #> in-packages             Using dplyr in packages (source, html)
+    #> window-functions        Window functions (source, html)
+    #> 
+    vignette(package = "dplyr", "dplyr")
+    ```
+
+Other sources of help
+
+- Google
+- [StackOverflow][]
+- ChatGPT & other AI
+
+[StackOverflow]: https://stackoverflow.com/questions/tagged/r
+
+# Session information
+
+```{r}
+sessionInfo()
+```

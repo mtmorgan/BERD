@@ -8,9 +8,14 @@ Authors@R: c(
         comment = c(ORCID = "0000-0002-5874-8148")
     ))
 Description: Course material for an 'Introduction to *R*' workshop
-    offered University at Buffalo BERD scholars, 2024.
+    offered to University at Buffalo BERD scholars, 2024.
 License: Artistic-2.0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
 URL: https://mtmorgan.github.io/BERD/
+Suggests:
+    readr, dplyr, ggplot2,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

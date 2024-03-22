@@ -1,0 +1,33 @@
+---
+title: "Visualization and Statistical Analysis"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Visualization and Statistical Analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Recap: BRFSS data input
+
+# Visualization
+
+# Statistical Analysis
+
+## t-test
+
+## Linear regression
+
+# Using AI
+
+# Session Information
+
+```{r}
+sessionInfo()
+```

@@ -1,0 +1,49 @@
+---
+title: "Data input and manipulation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data input and manipulation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Data input
+
+## From Excel to 'CSV'
+
+## CSV to R
+
+```{r}
+library(readr)
+```
+
+## Example data: BRFSS
+
+# Cleaning data using [dplyr][]
+
+## `mutate()`
+
+## `filter()`
+
+## `select()`
+
+## `count()`
+
+## `group_by()`
+
+## `summarize()`
+
+# Session information
+
+```{r}
+sessionInfo()
+```
+
+[dplyr]: https://CRAN.R-project.org/package=dplyr
