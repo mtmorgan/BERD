@@ -20,25 +20,144 @@ knitr::opts_chunk$set(
 
 ## CSV to R
 
-```{r}
-library(readr)
-```
-
 ## Example data: BRFSS
 
-# Cleaning data using [dplyr][]
+Download the data we will work with
 
-## `mutate()`
+```{r, eval = FALSE}
+url <- "https://raw.githubusercontent.com/mtmorgan/BERD/main/inst/extdata/BRFSS-subset.csv"
+destination <- file.path("data", basename(url))
+if (!file.exists(destination)) {
+    dir.create("data")
+    download.file(url, destination)
+}
+```
 
-## `filter()`
+```{r, echo = FALSE}
+destination <- system.file(package = "BERD", "extdata", "BRFSS-subset.csv")
+```
 
-## `select()`
+Read the data into *R* as a tibble using the [readr][] package.
+
+```{r}
+brfss <- readr::read_csv(destination)
+brfss
+```
+
+# Explore the data using [dplyr][]
+
+Attach [dplyr][] to our current *R* session.
+
+```{r, message = FALSE}
+library(dplyr)
+```
 
 ## `count()`
 
-## `group_by()`
+```{r}
+brfss |>
+    count(Year)
+brfss |>
+    count(Sex)
+brfss |>
+    count(Year, Sex)
+```
 
 ## `summarize()`
+
+```{r}
+brfss |>
+    summarize(
+        n = n(),
+        ave_age = mean(Age, na.rm = TRUE),
+        ave_wt = mean(Weight, na.rm = TRUE),
+        ave_ht = mean(Height, na.rm = TRUE)
+    )
+```
+
+## `group_by()`
+
+```{r}
+brfss |>
+    group_by(Year, Sex) |>
+    summarize(
+        n = n(),
+        ave_age = mean(Age, na.rm = TRUE),
+        ave_wt = mean(Weight, na.rm = TRUE),
+        ave_ht = mean(Height, na.rm = TRUE)
+    )
+```    
+
+## `mutate()`
+
+`Year` and `Sex` should really be factors. Also, add a column
+for log-10 transformed weight.
+
+```{r}
+brfss_clean <-
+    brfss |>
+    mutate(
+        Year = factor(Year, levels = c("1990", "2010")),
+        Sex = factor(Sex, levels = c("Female", "Male")),
+        Log10Weight = log10(Weight)
+    )
+brfss_clean
+```
+
+## `filter()`
+
+Create a subset of the data that includes only Male samples, or only
+Female samples from 2010.
+
+```{r}
+brfss_male <-
+    brfss_clean |>
+    filter(Sex == "Male")
+brfss_male
+brfss_female_2010 <-
+    brfss_clean |>
+    filter(Sex == "Female", Year == "2010")
+brfss_female_2010
+```
+
+## `select()`
+
+Use `select()` to choose particular columns
+
+```{r}
+brfss_male |>
+    select(Year, Age, Weight, Log10Weight, Height)
+```
+
+# Initial visualization
+
+What is the relationship between Height and Weight in Female samples
+from 2010?
+
+```{r, fig.asp = 1}
+plot(Weight ~ Height, brfss_female_2010)
+```
+
+With Weight on a log scale?
+
+```{r, fig.asp = 1}
+plot(Weight ~ Height, brfss_female_2010, log = "y")
+## another way, but maybe the Y-axis scale is harder to interpret?
+## plot(Log10Weight ~ Height, brfss_female_2010)
+```
+
+Do Males differ in weight between 1990 and 2010, plotted on a log scale?
+
+```{r, fig.asp = 1}
+brfss_male |>
+    group_by(Year) |>
+    summarize(
+        n = n(),
+        ave_wt = mean(Weight, na.rm = TRUE),
+        ave_log10_wt = mean(Log10Weight, na.rm = TRUE)
+    )
+plot(Weight ~ Year, brfss_male, log = "y")
+```
 
 # Session information
 
@@ -47,3 +166,4 @@ sessionInfo()
 ```
 
 [dplyr]: https://CRAN.R-project.org/package=dplyr
+[readr]: https://CRAN.R-project.org/package=readr
