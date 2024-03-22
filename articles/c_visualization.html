@@ -91,28 +91,12 @@
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">url</span>, <span class="va">destination</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">brfss</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="va">destination</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">20000</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">#&gt; <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">chr</span> (1): Sex</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">dbl</span> (4): Age, Weight, Height, Year</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">brfss</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="va">destination</span><span class="op">)</span></span></code></pre></div>
 <p>Attach the <a href="https://CRAN.R-project.org/package=dplyr" class="external-link">dplyr</a> package and
 perform the same initial data transformations, and create subsets of
 data.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
-<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     filter, lag</span></span>
-<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
 <span></span>
 <span><span class="va">brfss_clean</span> <span class="op">&lt;-</span></span>
 <span>    <span class="va">brfss</span> <span class="op">|&gt;</span></span>
@@ -172,7 +156,7 @@ Weight.</p>
 <span><span class="co">#&gt; mean in group 1990 mean in group 2010 </span></span>
 <span><span class="co">#&gt;           1.903711           1.939912</span></span></code></pre></div>
 <p>The <em>p</em>-value displayed here is <code>&lt; 2.2e-16</code>, so
-we are <em>very</em> confident that Males in 2010 are heavier than males
+we are <em>very</em> confident that Males in 2010 are heavier than Males
 in 1990.</p>
 <p>The ‘sample estimates’ agree with the values we calculated using
 <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize()</a></code>; this provides us
@@ -255,7 +239,7 @@ information</p>
 <span><span class="co">#&gt; Multiple R-squared:  0.1069, Adjusted R-squared:  0.1068 </span></span>
 <span><span class="co">#&gt; F-statistic:   710 on 1 and 5929 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
 <p>e.g., showing that about 10% (‘Adjusted R-squared’) of the variation
-in log 10 Weight is explaind by Height. There are likely many other
+in log 10 Weight is explained by Height. There are likely many other
 factors contributing to Weight variation.</p>
 <p>To visualize the linear regression, plot the data points and then use
 <code><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline()</a></code> to add the regression line; we also add a ‘main’
@@ -287,9 +271,7 @@ log scale.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">brfss_female_2010</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Height</span>, y <span class="op">=</span> <span class="va">Weight</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Removed 390 rows containing missing values or values outside the scale range</span></span>
-<span><span class="co">#&gt; (`geom_point()`).</span></span></code></pre></div>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="c_visualization_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
 <p>Add a linear regression using
 <code>geom_smooth(method = "lm")</code></p>
@@ -299,11 +281,7 @@ log scale.</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; `geom_smooth()` using formula = 'y ~ x'</span></span>
-<span><span class="co">#&gt; Warning: Removed 390 rows containing non-finite outside the scale range</span></span>
-<span><span class="co">#&gt; (`stat_smooth()`).</span></span>
-<span><span class="co">#&gt; Warning: Removed 390 rows containing missing values or values outside the scale range</span></span>
-<span><span class="co">#&gt; (`geom_point()`).</span></span></code></pre></div>
+<span><span class="co">#&gt; `geom_smooth()` using formula = 'y ~ x'</span></span></code></pre></div>
 <p><img src="c_visualization_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
 <p>Note that the fitted regression includes confidence bands, which can
 be very helpful when trying to interpret the fit.</p>
@@ -316,21 +294,18 @@ it’s default method…</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'</span></span>
-<span><span class="co">#&gt; Warning: Removed 390 rows containing non-finite outside the scale range</span></span>
-<span><span class="co">#&gt; (`stat_smooth()`).</span></span>
-<span><span class="co">#&gt; Warning: Removed 390 rows containing missing values or values outside the scale range</span></span>
-<span><span class="co">#&gt; (`geom_point()`).</span></span></code></pre></div>
+<span><span class="co">#&gt; `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'</span></span></code></pre></div>
 <p><img src="c_visualization_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
 <p><a href="https://CRAN.R-project.org/package=ggplot2" class="external-link">ggplot2</a> has
 chosen to use a ‘generalized additive model’ that fits a smoothed curve.
 This makes fewer <em>a priori</em> assumptions about the relationship
 between Weight and Height, and in particular suggests that (a) the
 linear relationship is appropriate for the central part of the data, but
-at the extremes of Height and (b) there is considerable uncertainty at
-the extremes of Height. This approach is very appropriate in early
-stages of exploratory analysis, where one is still trying to understand
-data without making additional or unnecessary assumptions.</p>
+not at the extremes of Height and (b) there is considerable uncertainty
+at the extremes of Height. This approach (making fewer assumptions about
+the relationship between variables) is very appropriate in early stages
+of exploratory analysis, where one is still trying to understand data
+without making additional or unnecessary assumptions.</p>
 </div>
 <div class="section level2">
 <h2 id="using-ai">Using AI<a class="anchor" aria-label="anchor" href="#using-ai"></a>
