@@ -43,7 +43,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/a_introduction_to_r.html">Introduction to R</a>
     <a class="dropdown-item" href="../articles/b_data_io.html">Data input and manipulation</a>
-    <a class="dropdown-item" href="../articles/c_visualization.html">Visualization and Statistical Analysis</a>
+    <a class="dropdown-item" href="../articles/c_visualization.html">Statistical Analysis and Additional Visualization</a>
   </div>
 </li>
       </ul>
@@ -292,26 +292,23 @@ interest</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
 <span><span class="va">x</span></span>
-<span><span class="co">#&gt;   [1] -1.236976620 -0.564394228 -1.120574030  0.744164705 -1.163659994</span></span>
-<span><span class="co">#&gt;   [6] -0.316699668 -0.161406438  0.321279135  0.483502403 -1.004097531</span></span>
-<span><span class="co">#&gt;  [11]  2.036654605  0.256059765  1.310020689  0.175094534  0.839900501</span></span>
-<span><span class="co">#&gt;  [16]  0.834438220  1.343743142  0.015728909 -0.399096376  0.026376382</span></span>
-<span><span class="co">#&gt;  [21]  0.816404782  1.831536288 -0.005318811 -0.270970011 -0.215304851</span></span>
-<span><span class="co">#&gt;  [26] -0.019864986 -0.994218717 -0.112083742 -0.405478076 -0.540706817</span></span>
-<span><span class="co">#&gt;  [31] -1.090499593 -0.625926465 -2.523031166  0.796968474 -1.115507533</span></span>
-<span><span class="co">#&gt;  [36]  0.230005535 -1.432898189  0.375271294  0.125662304  1.961366048</span></span>
-<span><span class="co">#&gt;  [41] -0.498018296 -0.379323488  0.735124598 -0.885778406 -0.914948973</span></span>
-<span><span class="co">#&gt;  [46] -0.268713367 -0.739120290  0.541587039 -0.282428431  0.869514729</span></span>
-<span><span class="co">#&gt;  [51] -2.174833106 -0.477416664  0.393109527 -0.578345440  0.835817883</span></span>
-<span><span class="co">#&gt;  [56]  0.327134043  0.025272017  2.878296433 -0.048329184 -1.282820044</span></span>
-<span><span class="co">#&gt;  [61]  0.100262744  0.128558878 -1.120857597  1.247806410  0.488109877</span></span>
-<span><span class="co">#&gt;  [66]  0.925688882 -1.180915706  0.556440687  0.569717781 -0.219910861</span></span>
-<span><span class="co">#&gt;  [71]  0.253702263 -0.633148904  0.096442616  1.352590831 -0.088598645</span></span>
-<span><span class="co">#&gt;  [76]  0.109672886 -0.439786487  0.640748611  0.588027130 -1.409426041</span></span>
-<span><span class="co">#&gt;  [81]  0.086628596 -0.192800851 -0.164430376 -0.204163427  2.033131915</span></span>
-<span><span class="co">#&gt;  [86] -1.797094297 -1.356607785  1.373207912 -1.659995198 -1.192701155</span></span>
-<span><span class="co">#&gt;  [91]  1.158507261 -0.277663544 -1.905273391  0.553199723 -0.544462598</span></span>
-<span><span class="co">#&gt;  [96]  1.637326489  0.211471159  0.406429239  1.046415851  1.378817221</span></span></code></pre></div>
+<span><span class="co">#&gt;   [1]  1.78556811  0.33184596  1.97564515 -0.07071529 -0.27152441  0.34426525</span></span>
+<span><span class="co">#&gt;   [7]  1.90478795 -1.37253682 -2.36035231  0.41359999 -0.53265800  0.59282024</span></span>
+<span><span class="co">#&gt;  [13]  0.42229579  1.47392482  1.19553792  0.63291454 -0.25504222 -0.12464319</span></span>
+<span><span class="co">#&gt;  [19] -1.80792722 -1.18524153  1.29260061  0.44788479  0.43793079 -1.91272150</span></span>
+<span><span class="co">#&gt;  [25]  1.06338199 -0.43423618 -1.50075709 -0.36360444  0.80054695 -0.55229802</span></span>
+<span><span class="co">#&gt;  [31] -0.06204109  0.26167826 -0.08815745  0.70516541 -1.16229862  0.18098553</span></span>
+<span><span class="co">#&gt;  [37] -0.82298188 -0.28787923  0.42706849  0.07340455 -0.35682721  0.12540860</span></span>
+<span><span class="co">#&gt;  [43] -0.52852267  2.02810176  0.34202364  1.35698111  0.03456445 -0.56437232</span></span>
+<span><span class="co">#&gt;  [49] -0.47256837  0.04297492  1.24146944 -0.96392188  1.07745034  1.06324637</span></span>
+<span><span class="co">#&gt;  [55] -0.44848888  1.17365034  0.11218180 -2.27841150  0.72561183 -1.92900653</span></span>
+<span><span class="co">#&gt;  [61]  0.38582485 -0.52717921  0.78008279 -1.23110883 -0.01105518 -0.20475982</span></span>
+<span><span class="co">#&gt;  [67] -0.28727842 -0.76882122  1.20914919 -0.56188086  0.76301255 -1.23131936</span></span>
+<span><span class="co">#&gt;  [73]  0.76078672  1.09654847 -1.87411794  1.22150723  0.35556513  1.46252602</span></span>
+<span><span class="co">#&gt;  [79] -0.19804992 -0.75620288  1.50192175 -1.78765753 -0.09799700 -1.72542671</span></span>
+<span><span class="co">#&gt;  [85] -1.64833768 -2.21651539  0.55257104  1.31372001 -0.85917583 -0.18342273</span></span>
+<span><span class="co">#&gt;  [91]  0.33637231 -0.16501881  0.31728331  0.83937455 -0.02460942 -0.31368997</span></span>
+<span><span class="co">#&gt;  [97]  2.11964574 -1.12986380 -0.14779557 -0.08747292</span></span></code></pre></div>
 <p>Look up the help page for <code>rnorm</code> –
 <code><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">?rnorm</a></code></p>
 <p>Plot a histogram using <code><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist()</a></code></p>

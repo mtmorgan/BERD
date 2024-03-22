@@ -43,7 +43,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/a_introduction_to_r.html">Introduction to R</a>
     <a class="dropdown-item" href="../articles/b_data_io.html">Data input and manipulation</a>
-    <a class="dropdown-item" href="../articles/c_visualization.html">Visualization and Statistical Analysis</a>
+    <a class="dropdown-item" href="../articles/c_visualization.html">Statistical Analysis and Additional Visualization</a>
   </div>
 </li>
       </ul>
@@ -136,10 +136,31 @@
 to our current <em>R</em> session.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></code></pre></div>
+<p>Useful functions for data exploration</p>
+<ul>
+<li>
+<code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count()</a></code> – count occurence of values in one or more
+columns</li>
+<li>
+<code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize()</a></code> – more flexible summary of columns</li>
+<li>
+<code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> – summarize or perform other operations by
+group</li>
+</ul>
+<p>Functions for data manipulation</p>
+<ul>
+<li>
+<code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code> – update or add columns</li>
+<li>
+<code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code> – remove rows based on column values</li>
+<li>
+<code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code> – remove, rearrange, or re-name columns</li>
+</ul>
 <div class="section level3">
 <h3 id="count">
 <code>count()</code><a class="anchor" aria-label="anchor" href="#count"></a>
 </h3>
+<p>Count of observed values for one…</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">brfss</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">Year</span><span class="op">)</span></span>
@@ -154,8 +175,10 @@ to our current <em>R</em> session.</p>
 <span><span class="co">#&gt;   Sex        n</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Female <span style="text-decoration: underline;">12</span>039</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Male    <span style="text-decoration: underline;">7</span>961</span></span>
-<span><span class="va">brfss</span> <span class="op">|&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Male    <span style="text-decoration: underline;">7</span>961</span></span></code></pre></div>
+<p>…or several columns</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">brfss</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">Sex</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 3</span></span></span>
 <span><span class="co">#&gt;    Year Sex        n</span></span>
@@ -169,7 +192,10 @@ to our current <em>R</em> session.</p>
 <h3 id="summarize">
 <code>summarize()</code><a class="anchor" aria-label="anchor" href="#summarize"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p>More flexible summary, e.g., number of observations <code><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n()</a></code>
+or mean values of columns, removing <code>NA</code>,
+<code>mean(, na.rm = TRUE)</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">brfss</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span></span>
 <span>        n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -186,7 +212,9 @@ to our current <em>R</em> session.</p>
 <h3 id="group_by">
 <code>group_by()</code><a class="anchor" aria-label="anchor" href="#group_by"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p>Often data sets contain groups that can be summarized separately,
+e.g., calculating mean values by Year and Sex.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">brfss</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">Sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span></span>
@@ -212,7 +240,7 @@ to our current <em>R</em> session.</p>
 </h3>
 <p><code>Year</code> and <code>Sex</code> should really be factors.
 Also, add a column for log-10 transformed weight.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">brfss_clean</span> <span class="op">&lt;-</span></span>
 <span>    <span class="va">brfss</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
@@ -240,9 +268,8 @@ Also, add a column for log-10 transformed weight.</p>
 <h3 id="filter">
 <code>filter()</code><a class="anchor" aria-label="anchor" href="#filter"></a>
 </h3>
-<p>Create a subset of the data that includes only Male samples, or only
-Female samples from 2010.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<p>Create a subset of the data that includes only Male samples, …</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">brfss_male</span> <span class="op">&lt;-</span></span>
 <span>    <span class="va">brfss_clean</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">"Male"</span><span class="op">)</span></span>
@@ -260,8 +287,10 @@ Female samples from 2010.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>    35   97.5 Male    193. 1990         1.99</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>    60   78.0 Male    170. 1990         1.89</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>    29   77.1 Male    175. 1990         1.89</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 7,951 more rows</span></span></span>
-<span><span class="va">brfss_female_2010</span> <span class="op">&lt;-</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 7,951 more rows</span></span></span></code></pre></div>
+<p>…or only Female samples from 2010.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">brfss_female_2010</span> <span class="op">&lt;-</span></span>
 <span>    <span class="va">brfss_clean</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Sex</span> <span class="op">==</span> <span class="st">"Female"</span>, <span class="va">Year</span> <span class="op">==</span> <span class="st">"2010"</span><span class="op">)</span></span>
 <span><span class="va">brfss_female_2010</span></span>
@@ -284,8 +313,9 @@ Female samples from 2010.</p>
 <h3 id="select">
 <code>select()</code><a class="anchor" aria-label="anchor" href="#select"></a>
 </h3>
-<p>Use <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code> to choose particular columns</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<p>Use <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code> to choose particular columns, or to
+re-order columns</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">brfss_male</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">Age</span>, <span class="va">Weight</span>, <span class="va">Log10Weight</span>, <span class="va">Height</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7,961 × 5</span></span></span>
@@ -309,19 +339,19 @@ Female samples from 2010.</p>
 </h2>
 <p>What is the relationship between Height and Weight in Female samples
 from 2010?</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">Weight</span> <span class="op">~</span> <span class="va">Height</span>, <span class="va">brfss_female_2010</span><span class="op">)</span></span></code></pre></div>
-<p><img src="b_data_io_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
-<p>With Weight on a log scale?</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">Weight</span> <span class="op">~</span> <span class="va">Height</span>, <span class="va">brfss_female_2010</span>, log <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="b_data_io_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">Weight</span> <span class="op">~</span> <span class="va">Height</span>, <span class="va">brfss_female_2010</span><span class="op">)</span></span></code></pre></div>
+<p><img src="b_data_io_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
+<p>With Weight on a log scale?</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">Weight</span> <span class="op">~</span> <span class="va">Height</span>, <span class="va">brfss_female_2010</span>, log <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="b_data_io_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## another way, but maybe the Y-axis scale is harder to interpret?</span></span>
 <span><span class="co">## plot(Log10Weight ~ Height, brfss_female_2010)</span></span></code></pre></div>
-<p>Do Males differ in weight between 1990 and 2010, plotted on a log
-scale?</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<p>Does it look like Males differ in weight between 1990 and 2010,
+plotted on a log scale?</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">brfss_male</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span></span>
@@ -335,12 +365,12 @@ scale?</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 1990   <span style="text-decoration: underline;">4</span>282   81.2         1.90</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 2010   <span style="text-decoration: underline;">3</span>679   88.8         1.94</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">Weight</span> <span class="op">~</span> <span class="va">Year</span>, <span class="va">brfss_male</span>, log <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="b_data_io_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
+<p><img src="b_data_io_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; R version 4.3.3 (2024-02-29)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
