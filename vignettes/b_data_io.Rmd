@@ -14,19 +14,50 @@ knitr::opts_chunk$set(
 )
 ```
 
+# Example data: BRFSS
+
+We use data from the US Center for Disease Control's Behavioral Risk
+Factor Surveillance System ([BRFSS][]) annual survey. Check out the
+web page for a little more information. We are using a small subset of
+this data, including a random sample of 20000 observations from each
+of 1990 and 2010.
+
+[BRFSS]: https://www.cdc.gov/brfss/
+
 # Data input
 
-## From Excel to 'CSV'
+## From Excel to CSV
 
-## CSV to R
+Getting a dataset into *R* is a necessary and sometimes tedious
+process. Often data starts as an Excel spreadsheet...
 
-## Example data: BRFSS
+![](figures/excel-sheet.png)
 
-Download the data we will work with
+Note that this is a straight-forward sheet -- the first row provides a
+column name. Each subsequent row corresponds to a single
+observation. There are no mouse-over 'comments' or secondary tables
+or... This simple structure is a good starting point for moving data
+to *R*.
+
+Our first step is to export the data from *Excel* to a 'CSV' file. We
+do this because (a) CSV files are easily read into *R* and (b) many
+other data sources can be transformed to CSV format. Chose the 'File'
+menu and then 'Save'. On macOS I then chose to save the data as CSV
+with a dialog box that looked like...
+
+![](figures/excel-export.png)
+
+This procedure would create a file 'BRFSS-subset.csv' on our computer. 
+
+We can't start with an Excel file, so instead download the data we
+will work with using the following command. You might need to make
+sure that the folder 'BRFSS-workshop' exists at the file system
+location returned by `getwd()`.
 
 ```{r, eval = FALSE}
+getwd()
 url <- "https://raw.githubusercontent.com/mtmorgan/BERD/main/inst/extdata/BRFSS-subset.csv"
-destination <- file.path("data", basename(url))
+destination <- file.path("BRFSS-workshop", basename(url))
 if (!file.exists(destination)) {
     dir.create("data")
     download.file(url, destination)
@@ -36,6 +67,8 @@ if (!file.exists(destination)) {
 ```{r, echo = FALSE}
 destination <- system.file(package = "BERD", "extdata", "BRFSS-subset.csv")
 ```
+
+## CSV to R
 
 Read the data into *R* as a tibble using the [readr][] package.
 

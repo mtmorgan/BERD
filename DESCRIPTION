@@ -1,6 +1,6 @@
 Package: BERD
 Title: Course Material for BERD Scholars Introduction to R
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: c(
     person(
         "Martin", "Morgan", role = c("aut", "cre"),

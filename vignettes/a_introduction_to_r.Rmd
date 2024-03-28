@@ -28,11 +28,32 @@ through [Bioconductor][] (for high-throughput genomic data).
 
 # *RStudio*
 
-## Panes
+![](figures/rstudio.png)
 
-## Scripts
+1. Console
 
-## Markdown
+    ![](figures/console-panel.png)
+
+    - enter *R* code 'interactively' at the prompt `>`. Press 'return'
+      to evaluate the code you have entered.
+
+2. Scripts & 'markdown'
+
+    ![](figures/script-panel.png)
+
+   - Enter *R* code here to save for later use.
+   - Use the '+' icon or *RStudio* 'File' menu item to create new
+     script files. Use the 'floppy disk' icon to save the script file
+     after changes.
+   - Use the 'Run' icon to run commands in the script in the console.
+
+3. Environment, history, ...
+    - Contains information about variables and commands created during
+      an *R* session.
+4. Files, plots, packages, help, ...
+    - Access to your computer file system, e.g., to open *R* scripts
+      that you had previously saved.
+    - Plot visualization, help pages, etc.
 
 # *R*
 
