@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">BERD</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,27 +80,51 @@
     
     
 <div class="section level2">
+<h2 id="example-data-brfss">Example data: BRFSS<a class="anchor" aria-label="anchor" href="#example-data-brfss"></a>
+</h2>
+<p>We use data from the US Center for Disease Control’s Behavioral Risk
+Factor Surveillance System (<a href="https://www.cdc.gov/brfss/" class="external-link">BRFSS</a>) annual survey. Check out
+the web page for a little more information. We are using a small subset
+of this data, including a random sample of 20000 observations from each
+of 1990 and 2010.</p>
+</div>
+<div class="section level2">
 <h2 id="data-input">Data input<a class="anchor" aria-label="anchor" href="#data-input"></a>
 </h2>
 <div class="section level3">
-<h3 id="from-excel-to-csv">From Excel to ‘CSV’<a class="anchor" aria-label="anchor" href="#from-excel-to-csv"></a>
+<h3 id="from-excel-to-csv">From Excel to CSV<a class="anchor" aria-label="anchor" href="#from-excel-to-csv"></a>
 </h3>
-</div>
-<div class="section level3">
-<h3 id="csv-to-r">CSV to R<a class="anchor" aria-label="anchor" href="#csv-to-r"></a>
-</h3>
-</div>
-<div class="section level3">
-<h3 id="example-data-brfss">Example data: BRFSS<a class="anchor" aria-label="anchor" href="#example-data-brfss"></a>
-</h3>
-<p>Download the data we will work with</p>
+<p>Getting a dataset into <em>R</em> is a necessary and sometimes
+tedious process. Often data starts as an Excel spreadsheet…</p>
+<p><img src="figures/excel-sheet.png"></p>
+<p>Note that this is a straight-forward sheet – the first row provides a
+column name. Each subsequent row corresponds to a single observation.
+There are no mouse-over ‘comments’ or secondary tables or… This simple
+structure is a good starting point for moving data to <em>R</em>.</p>
+<p>Our first step is to export the data from <em>Excel</em> to a ‘CSV’
+file. We do this because (a) CSV files are easily read into <em>R</em>
+and (b) many other data sources can be transformed to CSV format. Chose
+the ‘File’ menu and then ‘Save’. On macOS I then chose to save the data
+as CSV with a dialog box that looked like…</p>
+<p><img src="figures/excel-export.png"></p>
+<p>This procedure would create a file ‘BRFSS-subset.csv’ on our
+computer.</p>
+<p>We can’t start with an Excel file, so instead download the data we
+will work with using the following command. You might need to make sure
+that the folder ‘BRFSS-workshop’ exists at the file system location
+returned by <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/mtmorgan/BERD/main/inst/extdata/BRFSS-subset.csv"</span></span>
-<span><span class="va">destination</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/mtmorgan/BERD/main/inst/extdata/BRFSS-subset.csv"</span></span>
+<span><span class="va">destination</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"BRFSS-workshop"</span>, <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="va">destination</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">url</span>, <span class="va">destination</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="csv-to-r">CSV to R<a class="anchor" aria-label="anchor" href="#csv-to-r"></a>
+</h3>
 <p>Read the data into <em>R</em> as a tibble using the <a href="https://CRAN.R-project.org/package=readr" class="external-link">readr</a> package.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">brfss</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="va">destination</span><span class="op">)</span></span>

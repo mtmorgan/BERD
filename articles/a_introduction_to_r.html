@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">BERD</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,18 +93,45 @@ genomic data).</p>
 <h2 id="rstudio">
 <em>RStudio</em><a class="anchor" aria-label="anchor" href="#rstudio"></a>
 </h2>
-<div class="section level3">
-<h3 id="panes">Panes<a class="anchor" aria-label="anchor" href="#panes"></a>
-</h3>
-</div>
-<div class="section level3">
-<h3 id="scripts">Scripts<a class="anchor" aria-label="anchor" href="#scripts"></a>
-</h3>
-</div>
-<div class="section level3">
-<h3 id="markdown">Markdown<a class="anchor" aria-label="anchor" href="#markdown"></a>
-</h3>
-</div>
+<p><img src="figures/rstudio.png"></p>
+<ol style="list-style-type: decimal">
+<li>
+<p>Console</p>
+<p><img src="figures/console-panel.png"></p>
+<ul>
+<li>enter <em>R</em> code ‘interactively’ at the prompt
+<code>&gt;</code>. Press ‘return’ to evaluate the code you have
+entered.</li>
+</ul>
+</li>
+<li>
+<p>Scripts &amp; ‘markdown’</p>
+<p><img src="figures/script-panel.png"></p>
+<ul>
+<li>Enter <em>R</em> code here to save for later use.</li>
+<li>Use the ‘+’ icon or <em>RStudio</em> ‘File’ menu item to create new
+script files. Use the ‘floppy disk’ icon to save the script file after
+changes.</li>
+<li>Use the ‘Run’ icon to run commands in the script in the
+console.</li>
+</ul>
+</li>
+<li>
+<p>Environment, history, …</p>
+<ul>
+<li>Contains information about variables and commands created during an
+<em>R</em> session.</li>
+</ul>
+</li>
+<li>
+<p>Files, plots, packages, help, …</p>
+<ul>
+<li>Access to your computer file system, e.g., to open <em>R</em>
+scripts that you had previously saved.</li>
+<li>Plot visualization, help pages, etc.</li>
+</ul>
+</li>
+</ol>
 </div>
 <div class="section level2">
 <h2 id="r">
@@ -292,26 +319,26 @@ interest</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
 <span><span class="va">x</span></span>
-<span><span class="co">#&gt;   [1]  1.621867412  0.451509401 -0.895716870  0.006183746  0.315956010</span></span>
-<span><span class="co">#&gt;   [6]  0.237815921  0.322570292 -0.363770157 -0.961025274 -0.389008954</span></span>
-<span><span class="co">#&gt;  [11]  0.481916271  0.287436836  0.937568473 -0.254780147 -0.571365016</span></span>
-<span><span class="co">#&gt;  [16]  0.052042422 -0.027673424  0.267169284  0.396574023  0.069468284</span></span>
-<span><span class="co">#&gt;  [21] -1.608155247  1.699710924 -0.103936058 -0.825939835 -1.318595439</span></span>
-<span><span class="co">#&gt;  [26] -0.730612133 -0.079732270  0.930308798  1.646045132  0.315424938</span></span>
-<span><span class="co">#&gt;  [31]  0.498684647 -0.088193905  0.422955331  2.237432463  1.127936437</span></span>
-<span><span class="co">#&gt;  [36] -0.228046840  1.366318451  0.109887754 -0.399645029  0.631806880</span></span>
-<span><span class="co">#&gt;  [41] -0.223145400 -0.822189431  1.276528033  0.201744558  1.000728158</span></span>
-<span><span class="co">#&gt;  [46] -0.395378948  1.041320492  0.606587276 -1.500869639 -0.203470638</span></span>
-<span><span class="co">#&gt;  [51]  0.745987338 -1.163696359  0.438806183  1.371423590 -0.231400895</span></span>
-<span><span class="co">#&gt;  [56] -1.158868519 -0.564638664  0.368478003  0.146920747  3.475163361</span></span>
-<span><span class="co">#&gt;  [61] -0.652417532 -0.554290397 -0.943802529  0.003373606  0.466979867</span></span>
-<span><span class="co">#&gt;  [66] -0.201855792  2.042945410  1.734902726  0.620625255  0.859602556</span></span>
-<span><span class="co">#&gt;  [71] -1.277575993 -1.067144517  0.534956593  0.620234403 -0.561270502</span></span>
-<span><span class="co">#&gt;  [76] -0.715248145 -1.731893015  0.223731671 -0.163708566 -2.123118203</span></span>
-<span><span class="co">#&gt;  [81] -1.260404963  0.884878902  0.085872600  0.726548748 -2.261009801</span></span>
-<span><span class="co">#&gt;  [86]  0.241085759  1.476297144 -1.742422195  2.179763949 -1.325945394</span></span>
-<span><span class="co">#&gt;  [91] -0.267764196 -0.366123416  0.723083910  2.257331427 -0.224124068</span></span>
-<span><span class="co">#&gt;  [96] -1.319856442 -1.071806179 -1.352386560  0.597379853 -0.072292032</span></span></code></pre></div>
+<span><span class="co">#&gt;   [1]  1.050846017  0.608378832 -0.533256498  0.034282826 -1.329382167</span></span>
+<span><span class="co">#&gt;   [6] -0.146353644 -0.081870627  1.483665786  1.294152771 -0.856012810</span></span>
+<span><span class="co">#&gt;  [11] -0.169217564  1.045156517  1.487344267  1.514910606  0.689528188</span></span>
+<span><span class="co">#&gt;  [16]  0.067716503 -0.474411981  0.217607893  0.396611824 -0.449852640</span></span>
+<span><span class="co">#&gt;  [21] -1.771662579  1.244264773  1.474979030  0.490140800 -1.297516903</span></span>
+<span><span class="co">#&gt;  [26]  0.231804497  0.059469923 -0.874611496 -0.523227932 -0.374008414</span></span>
+<span><span class="co">#&gt;  [31]  0.492039703 -1.713651810  1.789590063  0.353477004  0.634348534</span></span>
+<span><span class="co">#&gt;  [36] -0.982970659  1.146448877  0.195471435 -2.247929407  1.262148973</span></span>
+<span><span class="co">#&gt;  [41]  0.138815441 -0.571851798 -0.464333094 -1.371587109  0.256871497</span></span>
+<span><span class="co">#&gt;  [46] -0.409751896  0.512142859  1.053496649 -2.171961306  0.587677874</span></span>
+<span><span class="co">#&gt;  [51] -3.192079748  1.661604894  0.301272149  0.483380401 -0.409671220</span></span>
+<span><span class="co">#&gt;  [56] -0.001647643 -0.212439473  0.711535546 -0.012720550 -0.200940415</span></span>
+<span><span class="co">#&gt;  [61]  0.403906189 -1.450762466 -0.060118211  0.444660294  1.200456678</span></span>
+<span><span class="co">#&gt;  [66] -0.748557142 -0.747353325 -0.622350528 -1.202183110 -1.010858843</span></span>
+<span><span class="co">#&gt;  [71]  1.571709573 -0.298598638  0.590295819 -0.516191593  1.385801163</span></span>
+<span><span class="co">#&gt;  [76] -1.352300454  0.045770315 -0.823815436  0.662876066 -1.584813257</span></span>
+<span><span class="co">#&gt;  [81] -0.781614535  1.079012595 -0.557489641  1.885943226 -0.055483692</span></span>
+<span><span class="co">#&gt;  [86] -0.921575471 -0.516705052  0.678116661  0.567271967  1.448868193</span></span>
+<span><span class="co">#&gt;  [91] -0.311404471  0.073357242  0.956348316  0.343130286 -0.323385984</span></span>
+<span><span class="co">#&gt;  [96] -2.008889560  1.001379386 -0.123581897 -2.008395323  0.325577785</span></span></code></pre></div>
 <p>Look up the help page for <code>rnorm</code> –
 <code><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">?rnorm</a></code></p>
 <p>Plot a histogram using <code><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist()</a></code></p>
